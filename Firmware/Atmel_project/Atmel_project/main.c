@@ -22,22 +22,26 @@ int main(void)
 {
     hardware_init();
     welcome_message();
+
+    data_struct data;
+
     _delay_ms(2000);
     //OLED_clrscreen();
     //_delay_ms(2000);
     //OLED_Connectmsg();
     //_delay_ms(2000);
-    OLED_printtime(115, 125);
 
-    uint8_t volts = 135;
-    uint16_t time_left = 80;
+
+
+    data.volts = 125;
+    data.time_left = 115;
 
     /* Replace with your application code */
     while (1) 
     {
-        OLED_printtime(volts, time_left);
-        volts -= 1;
-        time_left -= 10;
+        OLED_printtime(data);
+        data.volts -= 1;
+        data.time_left -= 10;
         _delay_ms(3000);
     }
 

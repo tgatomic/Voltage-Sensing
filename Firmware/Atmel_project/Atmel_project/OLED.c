@@ -5,8 +5,10 @@
  *  Author: Atomic
  */ 
  #include "u8g_oled/u8g.h"
+ #include "main.h"
  #include "OLED.h"
  #include <stdlib.h>
+
 
  u8g_t oled_display;
 
@@ -57,71 +59,70 @@ void OLED_Connectmsg(void){
 
 }
 
-void OLED_printtime(uint8_t volts, uint16_t time_left){
+data_struct OLED_Convertvalues(data_struct data){
 
-    char ascii_volts[30];
+    // Clear the arrays
+    for(uint8_t i = 0; i<30; i++){
+        data.ascii_volts[i] = 0x00;
+        data.ascii_hour[i] = 0x00;
+        data.ascii_minutes[i] = 0x00;
+    }
+
+    // Convert voltage values to correct format
     char tmp_ascci_buffer[30];
+    itoa(data.volts, tmp_ascci_buffer, 10);
+    data.ascii_volts[0] = tmp_ascci_buffer[0];
+    data.ascii_volts[1] = tmp_ascci_buffer[1];
+    data.ascii_volts[2] = '.';
+    data.ascii_volts[3] = tmp_ascci_buffer[2];
+    data.ascii_volts[4] = 'V';
 
-    for(uint8_t i = 0; i<30; i++){
-        ascii_volts[i] = 0x00;
+    // Convert time to right format in hour and minutes
+    data.hour = data.time_left / 60;
+    data.minute = data.time_left % 60;
+
+    itoa(data.hour, data.ascii_hour, 10);
+    itoa(data.minute, data.ascii_minutes, 10);
+
+    if(data.ascii_hour[1] == NULL){
+        data.ascii_hour[1] = 'h';
+        data.h_numbers = 1;
+        } else {
+        data.ascii_hour[2] = 'h';
+        data.h_numbers = 2;
     }
 
-    itoa(volts, tmp_ascci_buffer, 10);
-
-    ascii_volts[0] = tmp_ascci_buffer[0];
-    ascii_volts[1] = tmp_ascci_buffer[1];
-    ascii_volts[2] = '.';
-    ascii_volts[3] = tmp_ascci_buffer[2];
-    ascii_volts[4] = 'V';
-
-     char ascii_hour[30], ascii_minutes[30];
-     uint8_t hour = 0, minute = 0, h_numbers = 0, m_numbers = 0;
-
-    for(uint8_t i = 0; i<30; i++){
-        ascii_hour[i] = 0x00;
-        ascii_minutes[i] = 0x00;
+    if(data.ascii_minutes[1] == NULL){
+        data.ascii_minutes[1] = 'm';
+        data.ascii_minutes[2] = 'i';
+        data.ascii_minutes[3] = 'n';
+        data.m_numbers = 1;
+        } else {
+        data.ascii_minutes[2] = 'm';
+        data.ascii_minutes[3] = 'i';
+        data.ascii_minutes[4] = 'n';
+        data.m_numbers = 2;
     }
+    return data;
+}
 
-    hour = time_left / 60;
-    minute = time_left % 60;
+void OLED_printtime(data_struct values){
 
-    itoa(hour, ascii_hour, 10);
-    itoa(minute, ascii_minutes, 10);
-
-    if(ascii_hour[1] == NULL){
-        ascii_hour[1] = 'h';
-        h_numbers = 1;
-    } else {
-        ascii_hour[2] = 'h';
-        h_numbers = 2;
-    }
-
-    if(ascii_minutes[1] == NULL){
-        ascii_minutes[1] = 'm';
-        ascii_minutes[2] = 'i';
-        ascii_minutes[3] = 'n';
-        m_numbers = 1;
-    } else {
-        ascii_minutes[2] = 'm';
-        ascii_minutes[3] = 'i';
-        ascii_minutes[4] = 'n';
-        m_numbers = 2;
-    }
-
+    data_struct data = OLED_Convertvalues(values);
 
     u8g_FirstPage(&oled_display);
     do
     {
         // Screen = 128x64
         // Printing hour left
-        uint8_t hour_placing = (50-(h_numbers*10));
+        uint8_t hour_placing = (50-(data.h_numbers*10));
         u8g_SetFont(&oled_display, u8g_font_courB24);
-        u8g_DrawStr(&oled_display, hour_placing, 27, ascii_hour);
+        u8g_DrawStr(&oled_display, hour_placing, 27, data.ascii_hour);
 
         // Printing minutes left
-        uint8_t min_placing = (48-(m_numbers*8));
+        uint8_t min_placing = (48-(data.m_numbers*8));
         u8g_SetFont(&oled_display, u8g_font_courB14);
-        u8g_DrawStr(&oled_display, min_placing, 45, ascii_minutes);
+        u8g_DrawStr(&oled_display, min_placing, 45, data.ascii_minutes);
 
         // Printing "time left"
         u8g_SetFont(&oled_display, u8g_font_courB10);
@@ -129,7 +130,7 @@ void OLED_printtime(uint8_t volts, uint16_t time_left){
 
         // Printing the voltage
         u8g_SetFont(&oled_display, u8g_font_4x6);
-        u8g_DrawStr(&oled_display, 104, 10, ascii_volts);
+        u8g_DrawStr(&oled_display, 104, 10, data.ascii_volts);
 
     } while ( u8g_NextPage(&oled_display) );
 
@@ -150,15 +151,5 @@ void OLED_printtime(uint8_t volts, uint16_t time_left){
 
     u8g_FirstPage(&oled_display);
     while( u8g_NextPage(&oled_display) );
-
- }
-
- void testdraw(void){
-
-     u8g_FirstPage(&oled_display);
-     do
-     {
-         draw();
-     } while ( u8g_NextPage(&oled_display) );
 
  }

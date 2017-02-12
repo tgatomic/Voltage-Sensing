@@ -26,8 +26,10 @@ typedef struct{
     uint8_t hour;
     uint8_t minute;
 
+    uint8_t volts;
+    uint16_t time_left;
+
 }data_struct;
 
-volatile data_struct info; 
 
 #endif /* MAIN_H_ */
