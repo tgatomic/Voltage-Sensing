@@ -21,14 +21,24 @@ uint8_t hardware_init(void);
 int main(void)
 {
     hardware_init();
+    welcome_message();
+    _delay_ms(2000);
+    //OLED_clrscreen();
+    //_delay_ms(2000);
+    //OLED_Connectmsg();
+    //_delay_ms(2000);
+    OLED_printtime(115, 125);
+
+    uint8_t volts = 135;
+    uint16_t time_left = 80;
 
     /* Replace with your application code */
     while (1) 
     {
-        /*PORTB |= (1<<DBG_LED_PIN);
-        _delay_ms(1000);
-        PORTB &= ~(1<<DBG_LED_PIN);
-        _delay_ms(500);*/
+        OLED_printtime(volts, time_left);
+        volts -= 1;
+        time_left -= 10;
+        _delay_ms(3000);
     }
 
 }

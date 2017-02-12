@@ -158,8 +158,7 @@ C_SRCS +=  \
 ../u8g_oled/u8g_u8toa.c \
 ../u8g_oled/u8g_virtual_screen.c \
 ../UART.c \
-../main.c \
-../TWI_Master.c
+../main.c
 
 
 PREPROCESSING_SRCS += 
@@ -289,8 +288,7 @@ u8g_oled/u8g_u16toa.o \
 u8g_oled/u8g_u8toa.o \
 u8g_oled/u8g_virtual_screen.o \
 UART.o \
-main.o \
-TWI_Master.o
+main.o
 
 OBJS_AS_ARGS +=  \
 ADC.o \
@@ -413,8 +411,7 @@ u8g_oled/u8g_u16toa.o \
 u8g_oled/u8g_u8toa.o \
 u8g_oled/u8g_virtual_screen.o \
 UART.o \
-main.o \
-TWI_Master.o
+main.o
 
 C_DEPS +=  \
 ADC.d \
@@ -537,8 +534,7 @@ u8g_oled/u8g_u16toa.d \
 u8g_oled/u8g_u8toa.d \
 u8g_oled/u8g_virtual_screen.d \
 UART.d \
-main.d \
-TWI_Master.d
+main.d
 
 C_DEPS_AS_ARGS +=  \
 ADC.d \
@@ -661,8 +657,7 @@ u8g_oled/u8g_u16toa.d \
 u8g_oled/u8g_u8toa.d \
 u8g_oled/u8g_virtual_screen.d \
 UART.d \
-main.d \
-TWI_Master.d
+main.d
 
 OUTPUT_FILE_PATH +=Atmel_project.elf
 
@@ -678,8 +673,6 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-
-
 
 
 
