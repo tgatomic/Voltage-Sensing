@@ -4,16 +4,14 @@
  * Created: 2017-02-11 22:09:20
  *  Author: Atomic
  */ 
- #include "u8g_oled/u8g.h"
- #include "main.h"
- #include "OLED.h"
- #include <stdlib.h>
+#include <stdlib.h>
+#include "u8g_oled/u8g.h"
+#include "main.h"
+#include "OLED.h"
 
+u8g_t oled_display;
 
- u8g_t oled_display;
-
-
- uint8_t OLED_Init(void){
+uint8_t OLED_Init(void){
 
     // Setting transfer speed
     CLKPR = 0x80;
@@ -104,36 +102,6 @@ data_struct OLED_Convertvalues(data_struct data){
         data.m_numbers = 2;
     }
     return data;
-}
-
-void OLED_printtime(data_struct values){
-
-    data_struct data = OLED_Convertvalues(values);
-
-    u8g_FirstPage(&oled_display);
-    do
-    {
-        // Screen = 128x64
-        // Printing hour left
-        uint8_t hour_placing = (50-(data.h_numbers*10));
-        u8g_SetFont(&oled_display, u8g_font_courB24);
-        u8g_DrawStr(&oled_display, hour_placing, 27, data.ascii_hour);
-
-        // Printing minutes left
-        uint8_t min_placing = (48-(data.m_numbers*8));
-        u8g_SetFont(&oled_display, u8g_font_courB14);
-        u8g_DrawStr(&oled_display, min_placing, 45, data.ascii_minutes);
-
-        // Printing "time left"
-        u8g_SetFont(&oled_display, u8g_font_courB10);
-        u8g_DrawStr(&oled_display, 22, 60, "time left");
-
-        // Printing the voltage
-        u8g_SetFont(&oled_display, u8g_font_4x6);
-        u8g_DrawStr(&oled_display, 104, 10, data.ascii_volts);
-
-    } while ( u8g_NextPage(&oled_display) );
-
 }
 
  void OLED_print(const uint8_t  *font, uint8_t x,  uint8_t y, const char *s){

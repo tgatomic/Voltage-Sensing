@@ -41,7 +41,7 @@
 
 /* comment the following line to generate more compact but interrupt unsafe code */
 #define U8G_INTERRUPT_SAFE 1
-#define F_CPU 8000000
+#define F_CPU 8000000UL
 
 #include <stddef.h>
 
