@@ -54,17 +54,11 @@ Discarded input sections
  .text          0x00000000        0x0 ADC.o
  .data          0x00000000        0x0 ADC.o
  .bss           0x00000000        0x0 ADC.o
- .text.Read_ADC
-                0x00000000       0x3c ADC.o
  .text          0x00000000        0x0 OLED.o
  .data          0x00000000        0x0 OLED.o
  .bss           0x00000000        0x0 OLED.o
- .text.OLED_Connectmsg
-                0x00000000       0x4e OLED.o
  .text.OLED_print
                 0x00000000       0x42 OLED.o
- .text.OLED_clrscreen
-                0x00000000       0x16 OLED.o
  .text          0x00000000        0x0 u8g_oled/chessengine.o
  .data          0x00000000        0x0 u8g_oled/chessengine.o
  .bss           0x00000000        0x0 u8g_oled/chessengine.o
@@ -4379,12 +4373,20 @@ Discarded input sections
  .bss           0x00000000        0x0 UART.o
  .text.UART_Recieve
                 0x00000000       0x10 UART.o
+ .text.UART_Send_String
+                0x00000000       0x24 UART.o
  .text.Uart_Flush
                 0x00000000       0x1a UART.o
  .text.Error    0x00000000       0x42 UART.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
+ .text.connected
+                0x00000000       0x14 main.o
+ .text.Calculate_time_left
+                0x00000000        0x6 main.o
+ .text.UART_Send_ADC
+                0x00000000       0x12 main.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
@@ -4795,7 +4797,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x6d8a
+.text           0x00000000     0x6edc
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.106/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -4910,245 +4912,257 @@ END GROUP
  .text.ADC_init
                 0x00005866       0x16 ADC.o
                 0x00005866                ADC_init
+ .text.Read_ADC
+                0x0000587c       0x3c ADC.o
+                0x0000587c                Read_ADC
  .text.OLED_Init
-                0x0000587c       0x1a OLED.o
-                0x0000587c                OLED_Init
+                0x000058b8       0x1a OLED.o
+                0x000058b8                OLED_Init
  .text.welcome_message
-                0x00005896       0x6a OLED.o
-                0x00005896                welcome_message
+                0x000058d2       0x6a OLED.o
+                0x000058d2                welcome_message
+ .text.OLED_Connectmsg
+                0x0000593c       0x4e OLED.o
+                0x0000593c                OLED_Connectmsg
  .text.OLED_Convertvalues
-                0x00005900      0x192 OLED.o
-                0x00005900                OLED_Convertvalues
- .text.OLED_printtime
-                0x00005a92      0x12c OLED.o
-                0x00005a92                OLED_printtime
+                0x0000598a      0x192 OLED.o
+                0x0000598a                OLED_Convertvalues
+ .text.OLED_clrscreen
+                0x00005b1c       0x16 OLED.o
+                0x00005b1c                OLED_clrscreen
  .text.u8g_IsBBXIntersection
-                0x00005bbe       0x64 u8g_oled/u8g_clip.o
-                0x00005bbe                u8g_IsBBXIntersection
+                0x00005b32       0x64 u8g_oled/u8g_clip.o
+                0x00005b32                u8g_IsBBXIntersection
  .text.u8g_InitCom
-                0x00005c22       0x14 u8g_oled/u8g_com_api.o
-                0x00005c22                u8g_InitCom
+                0x00005b96       0x14 u8g_oled/u8g_com_api.o
+                0x00005b96                u8g_InitCom
  .text.u8g_SetChipSelect
-                0x00005c36       0x14 u8g_oled/u8g_com_api.o
-                0x00005c36                u8g_SetChipSelect
+                0x00005baa       0x14 u8g_oled/u8g_com_api.o
+                0x00005baa                u8g_SetChipSelect
  .text.u8g_SetResetLow
-                0x00005c4a       0x16 u8g_oled/u8g_com_api.o
-                0x00005c4a                u8g_SetResetLow
+                0x00005bbe       0x16 u8g_oled/u8g_com_api.o
+                0x00005bbe                u8g_SetResetLow
  .text.u8g_SetResetHigh
-                0x00005c60       0x16 u8g_oled/u8g_com_api.o
-                0x00005c60                u8g_SetResetHigh
+                0x00005bd4       0x16 u8g_oled/u8g_com_api.o
+                0x00005bd4                u8g_SetResetHigh
  .text.u8g_SetAddress
-                0x00005c76       0x14 u8g_oled/u8g_com_api.o
-                0x00005c76                u8g_SetAddress
+                0x00005bea       0x14 u8g_oled/u8g_com_api.o
+                0x00005bea                u8g_SetAddress
  .text.u8g_WriteByte
-                0x00005c8a       0x14 u8g_oled/u8g_com_api.o
-                0x00005c8a                u8g_WriteByte
+                0x00005bfe       0x14 u8g_oled/u8g_com_api.o
+                0x00005bfe                u8g_WriteByte
  .text.u8g_WriteSequence
-                0x00005c9e       0x10 u8g_oled/u8g_com_api.o
-                0x00005c9e                u8g_WriteSequence
+                0x00005c12       0x10 u8g_oled/u8g_com_api.o
+                0x00005c12                u8g_WriteSequence
  .text.u8g_WriteEscSeqP
-                0x00005cae       0xec u8g_oled/u8g_com_api.o
-                0x00005cae                u8g_WriteEscSeqP
+                0x00005c22       0xec u8g_oled/u8g_com_api.o
+                0x00005c22                u8g_WriteEscSeqP
  .text.u8g_com_arduino_ssd_start_sequence
-                0x00005d9a       0x40 u8g_oled/u8g_com_arduino_ssd_i2c.o
-                0x00005d9a                u8g_com_arduino_ssd_start_sequence
+                0x00005d0e       0x40 u8g_oled/u8g_com_arduino_ssd_i2c.o
+                0x00005d0e                u8g_com_arduino_ssd_start_sequence
  .text.u8g_com_arduino_ssd_i2c_fn
-                0x00005dda      0x128 u8g_oled/u8g_com_arduino_ssd_i2c.o
-                0x00005dda                u8g_com_arduino_ssd_i2c_fn
+                0x00005d4e      0x128 u8g_oled/u8g_com_arduino_ssd_i2c.o
+                0x00005d4e                u8g_com_arduino_ssd_i2c_fn
  .text.u8g_i2c_set_error
-                0x00005f02       0x12 u8g_oled/u8g_com_i2c.o
+                0x00005e76       0x12 u8g_oled/u8g_com_i2c.o
  .text.u8g_i2c_clear_error
-                0x00005f14        0xa u8g_oled/u8g_com_i2c.o
-                0x00005f14                u8g_i2c_clear_error
+                0x00005e88        0xa u8g_oled/u8g_com_i2c.o
+                0x00005e88                u8g_i2c_clear_error
  .text.u8g_i2c_init
-                0x00005f1e       0x20 u8g_oled/u8g_com_i2c.o
-                0x00005f1e                u8g_i2c_init
+                0x00005e92       0x20 u8g_oled/u8g_com_i2c.o
+                0x00005e92                u8g_i2c_init
  .text.u8g_i2c_wait
-                0x00005f3e       0x70 u8g_oled/u8g_com_i2c.o
-                0x00005f3e                u8g_i2c_wait
+                0x00005eb2       0x70 u8g_oled/u8g_com_i2c.o
+                0x00005eb2                u8g_i2c_wait
  .text.u8g_i2c_start
-                0x00005fae       0x7a u8g_oled/u8g_com_i2c.o
-                0x00005fae                u8g_i2c_start
+                0x00005f22       0x7a u8g_oled/u8g_com_i2c.o
+                0x00005f22                u8g_i2c_start
  .text.u8g_i2c_send_byte
-                0x00006028       0x46 u8g_oled/u8g_com_i2c.o
-                0x00006028                u8g_i2c_send_byte
+                0x00005f9c       0x46 u8g_oled/u8g_com_i2c.o
+                0x00005f9c                u8g_i2c_send_byte
  .text.u8g_i2c_stop
-                0x0000606e       0x10 u8g_oled/u8g_com_i2c.o
-                0x0000606e                u8g_i2c_stop
+                0x00005fe2       0x10 u8g_oled/u8g_com_i2c.o
+                0x00005fe2                u8g_i2c_stop
  .text.u8g_Delay
-                0x0000607e       0x14 u8g_oled/u8g_delay.o
-                0x0000607e                u8g_Delay
+                0x00005ff2       0x14 u8g_oled/u8g_delay.o
+                0x00005ff2                u8g_Delay
  .text.u8g_dev_ssd1306_128x64_fn
-                0x00006092       0xbc u8g_oled/u8g_dev_ssd1306_128x64.o
-                0x00006092                u8g_dev_ssd1306_128x64_fn
+                0x00006006       0xbc u8g_oled/u8g_dev_ssd1306_128x64.o
+                0x00006006                u8g_dev_ssd1306_128x64_fn
  .text.u8g_font_get_word
-                0x0000614e       0x18 u8g_oled/u8g_font.o
+                0x000060c2       0x18 u8g_oled/u8g_font.o
  .text.u8g_font_GetFormat
-                0x00006166        0x6 u8g_oled/u8g_font.o
+                0x000060da        0x6 u8g_oled/u8g_font.o
  .text.u8g_font_GetFontGlyphStructureSize
-                0x0000616c       0x14 u8g_oled/u8g_font.o
+                0x000060e0       0x14 u8g_oled/u8g_font.o
  .text.u8g_font_calc_vref_font
-                0x00006180        0x4 u8g_oled/u8g_font.o
-                0x00006180                u8g_font_calc_vref_font
+                0x000060f4        0x4 u8g_oled/u8g_font.o
+                0x000060f4                u8g_font_calc_vref_font
  .text.u8g_font_GetEncoding65Pos
-                0x00006184        0x8 u8g_oled/u8g_font.o
-                0x00006184                u8g_font_GetEncoding65Pos
+                0x000060f8        0x8 u8g_oled/u8g_font.o
+                0x000060f8                u8g_font_GetEncoding65Pos
  .text.u8g_font_GetEncoding97Pos
-                0x0000618c        0x8 u8g_oled/u8g_font.o
-                0x0000618c                u8g_font_GetEncoding97Pos
+                0x00006100        0x8 u8g_oled/u8g_font.o
+                0x00006100                u8g_font_GetEncoding97Pos
  .text.u8g_font_GetFontStartEncoding
-                0x00006194        0x8 u8g_oled/u8g_font.o
-                0x00006194                u8g_font_GetFontStartEncoding
+                0x00006108        0x8 u8g_oled/u8g_font.o
+                0x00006108                u8g_font_GetFontStartEncoding
  .text.u8g_font_GetFontEndEncoding
-                0x0000619c        0x8 u8g_oled/u8g_font.o
-                0x0000619c                u8g_font_GetFontEndEncoding
+                0x00006110        0x8 u8g_oled/u8g_font.o
+                0x00006110                u8g_font_GetFontEndEncoding
  .text.u8g_GetGlyph
-                0x000061a4      0x1ca u8g_oled/u8g_font.o
-                0x000061a4                u8g_GetGlyph
+                0x00006118      0x1ca u8g_oled/u8g_font.o
+                0x00006118                u8g_GetGlyph
  .text.u8g_draw_glyph
-                0x0000636e       0xe0 u8g_oled/u8g_font.o
-                0x0000636e                u8g_draw_glyph
+                0x000062e2       0xe0 u8g_oled/u8g_font.o
+                0x000062e2                u8g_draw_glyph
  .text.u8g_DrawStr
-                0x0000644e       0x60 u8g_oled/u8g_font.o
-                0x0000644e                u8g_DrawStr
+                0x000063c2       0x60 u8g_oled/u8g_font.o
+                0x000063c2                u8g_DrawStr
  .text.u8g_UpdateRefHeight
-                0x000064ae       0xac u8g_oled/u8g_font.o
-                0x000064ae                u8g_UpdateRefHeight
+                0x00006422       0xac u8g_oled/u8g_font.o
+                0x00006422                u8g_UpdateRefHeight
  .text.u8g_SetFontPosBaseline
-                0x0000655a        0xc u8g_oled/u8g_font.o
-                0x0000655a                u8g_SetFontPosBaseline
+                0x000064ce        0xc u8g_oled/u8g_font.o
+                0x000064ce                u8g_SetFontPosBaseline
  .text.u8g_SetFont
-                0x00006566       0x28 u8g_oled/u8g_font.o
-                0x00006566                u8g_SetFont
+                0x000064da       0x28 u8g_oled/u8g_font.o
+                0x000064da                u8g_SetFont
  .text.u8g_init_data
-                0x0000658e       0x58 u8g_oled/u8g_ll_api.o
+                0x00006502       0x58 u8g_oled/u8g_ll_api.o
  .text.u8g_call_dev_fn
-                0x000065e6        0xa u8g_oled/u8g_ll_api.o
-                0x000065e6                u8g_call_dev_fn
+                0x0000655a        0xa u8g_oled/u8g_ll_api.o
+                0x0000655a                u8g_call_dev_fn
  .text.u8g_InitLL
-                0x000065f0       0x40 u8g_oled/u8g_ll_api.o
-                0x000065f0                u8g_InitLL
+                0x00006564       0x40 u8g_oled/u8g_ll_api.o
+                0x00006564                u8g_InitLL
  .text.u8g_FirstPageLL
-                0x00006630       0x4c u8g_oled/u8g_ll_api.o
-                0x00006630                u8g_FirstPageLL
+                0x000065a4       0x4c u8g_oled/u8g_ll_api.o
+                0x000065a4                u8g_FirstPageLL
  .text.u8g_NextPageLL
-                0x0000667c       0x58 u8g_oled/u8g_ll_api.o
-                0x0000667c                u8g_NextPageLL
+                0x000065f0       0x58 u8g_oled/u8g_ll_api.o
+                0x000065f0                u8g_NextPageLL
  .text.u8g_GetWidthLL
-                0x000066d4       0x20 u8g_oled/u8g_ll_api.o
-                0x000066d4                u8g_GetWidthLL
+                0x00006648       0x20 u8g_oled/u8g_ll_api.o
+                0x00006648                u8g_GetWidthLL
  .text.u8g_GetHeightLL
-                0x000066f4       0x20 u8g_oled/u8g_ll_api.o
-                0x000066f4                u8g_GetHeightLL
+                0x00006668       0x20 u8g_oled/u8g_ll_api.o
+                0x00006668                u8g_GetHeightLL
  .text.u8g_GetModeLL
-                0x00006714        0xc u8g_oled/u8g_ll_api.o
-                0x00006714                u8g_GetModeLL
+                0x00006688        0xc u8g_oled/u8g_ll_api.o
+                0x00006688                u8g_GetModeLL
  .text.u8g_UpdateDimension
-                0x00006720       0x40 u8g_oled/u8g_ll_api.o
-                0x00006720                u8g_UpdateDimension
+                0x00006694       0x40 u8g_oled/u8g_ll_api.o
+                0x00006694                u8g_UpdateDimension
  .text.u8g_Begin
-                0x00006760       0x20 u8g_oled/u8g_ll_api.o
-                0x00006760                u8g_Begin
+                0x000066d4       0x20 u8g_oled/u8g_ll_api.o
+                0x000066d4                u8g_Begin
  .text.u8g_InitI2C
-                0x00006780       0x2c u8g_oled/u8g_ll_api.o
-                0x00006780                u8g_InitI2C
+                0x000066f4       0x2c u8g_oled/u8g_ll_api.o
+                0x000066f4                u8g_InitI2C
  .text.u8g_FirstPage
-                0x000067ac        0xc u8g_oled/u8g_ll_api.o
-                0x000067ac                u8g_FirstPage
+                0x00006720        0xc u8g_oled/u8g_ll_api.o
+                0x00006720                u8g_FirstPage
  .text.u8g_NextPage
-                0x000067b8       0x20 u8g_oled/u8g_ll_api.o
-                0x000067b8                u8g_NextPage
+                0x0000672c       0x20 u8g_oled/u8g_ll_api.o
+                0x0000672c                u8g_NextPage
  .text.u8g_Draw8Pixel
-                0x000067d8       0x24 u8g_oled/u8g_ll_api.o
-                0x000067d8                u8g_Draw8Pixel
+                0x0000674c       0x24 u8g_oled/u8g_ll_api.o
+                0x0000674c                u8g_Draw8Pixel
  .text.u8g_page_First
-                0x000067fc        0xe u8g_oled/u8g_page.o
-                0x000067fc                u8g_page_First
+                0x00006770        0xe u8g_oled/u8g_page.o
+                0x00006770                u8g_page_First
  .text.u8g_page_Next
-                0x0000680a       0x2c u8g_oled/u8g_page.o
-                0x0000680a                u8g_page_Next
+                0x0000677e       0x2c u8g_oled/u8g_page.o
+                0x0000677e                u8g_page_Next
  .text.u8g_pb_Clear
-                0x00006836       0x20 u8g_oled/u8g_pb.o
-                0x00006836                u8g_pb_Clear
+                0x000067aa       0x20 u8g_oled/u8g_pb.o
+                0x000067aa                u8g_pb_Clear
  .text.u8g_pb_IsYIntersection
-                0x00006856       0x2c u8g_oled/u8g_pb.o
-                0x00006856                u8g_pb_IsYIntersection
+                0x000067ca       0x2c u8g_oled/u8g_pb.o
+                0x000067ca                u8g_pb_IsYIntersection
  .text.u8g_pb_GetPageBox
-                0x00006882       0x20 u8g_oled/u8g_pb.o
-                0x00006882                u8g_pb_GetPageBox
+                0x000067f6       0x20 u8g_oled/u8g_pb.o
+                0x000067f6                u8g_pb_GetPageBox
  .text.u8g_pb_Is8PixelVisible
-                0x000068a2       0x26 u8g_oled/u8g_pb.o
-                0x000068a2                u8g_pb_Is8PixelVisible
+                0x00006816       0x26 u8g_oled/u8g_pb.o
+                0x00006816                u8g_pb_Is8PixelVisible
  .text.u8g_pb_WriteBuffer
-                0x000068c8       0x12 u8g_oled/u8g_pb.o
-                0x000068c8                u8g_pb_WriteBuffer
+                0x0000683c       0x12 u8g_oled/u8g_pb.o
+                0x0000683c                u8g_pb_WriteBuffer
  .text.u8g_pb8v1_set_pixel
-                0x000068da       0x3a u8g_oled/u8g_pb8v1.o
-                0x000068da                u8g_pb8v1_set_pixel
+                0x0000684e       0x3a u8g_oled/u8g_pb8v1.o
+                0x0000684e                u8g_pb8v1_set_pixel
  .text.u8g_pb8v1_SetPixel
-                0x00006914       0x2a u8g_oled/u8g_pb8v1.o
-                0x00006914                u8g_pb8v1_SetPixel
+                0x00006888       0x2a u8g_oled/u8g_pb8v1.o
+                0x00006888                u8g_pb8v1_SetPixel
  .text.u8g_pb8v1_Set8PixelOpt2
-                0x0000693e       0x72 u8g_oled/u8g_pb8v1.o
-                0x0000693e                u8g_pb8v1_Set8PixelOpt2
+                0x000068b2       0x72 u8g_oled/u8g_pb8v1.o
+                0x000068b2                u8g_pb8v1_Set8PixelOpt2
  .text.u8g_dev_pb8v1_base_fn
-                0x000069b0       0x9c u8g_oled/u8g_pb8v1.o
-                0x000069b0                u8g_dev_pb8v1_base_fn
+                0x00006924       0x9c u8g_oled/u8g_pb8v1.o
+                0x00006924                u8g_dev_pb8v1_base_fn
  .text.u8g_draw_hline
-                0x00006a4c       0x8a u8g_oled/u8g_rect.o
-                0x00006a4c                u8g_draw_hline
+                0x000069c0       0x8a u8g_oled/u8g_rect.o
+                0x000069c0                u8g_draw_hline
  .text.u8g_DrawHLine
-                0x00006ad6       0x38 u8g_oled/u8g_rect.o
-                0x00006ad6                u8g_DrawHLine
+                0x00006a4a       0x38 u8g_oled/u8g_rect.o
+                0x00006a4a                u8g_DrawHLine
  .text.u8g_state_dummy_cb
-                0x00006b0e        0x2 u8g_oled/u8g_state.o
-                0x00006b0e                u8g_state_dummy_cb
+                0x00006a82        0x2 u8g_oled/u8g_state.o
+                0x00006a82                u8g_state_dummy_cb
  .text.UART_Init
-                0x00006b10       0x3a UART.o
-                0x00006b10                UART_Init
+                0x00006a84       0x3a UART.o
+                0x00006a84                UART_Init
  .text.UART_Send
-                0x00006b4a       0x10 UART.o
-                0x00006b4a                UART_Send
- .text.UART_Send_String
-                0x00006b5a       0x24 UART.o
-                0x00006b5a                UART_Send_String
+                0x00006abe       0x10 UART.o
+                0x00006abe                UART_Send
  .text.__vector_5
-                0x00006b7e       0x14 UART.o
-                0x00006b7e                __vector_5
+                0x00006ace       0x14 UART.o
+                0x00006ace                __vector_5
  .text.hardware_init
-                0x00006b92       0x42 main.o
-                0x00006b92                hardware_init
- .text.main     0x00006bd4       0x9c main.o
-                0x00006bd4                main
+                0x00006ae2       0x36 main.o
+                0x00006ae2                hardware_init
+ .text.Calculate_voltage
+                0x00006b18       0x36 main.o
+                0x00006b18                Calculate_voltage
+ .text.Get_ADC_and_time
+                0x00006b4e       0x20 main.o
+                0x00006b4e                Get_ADC_and_time
+ .text.OLED_printtime
+                0x00006b6e      0x160 main.o
+                0x00006b6e                OLED_printtime
+ .text.main     0x00006cce       0xf4 main.o
+                0x00006cce                main
  .text.libgcc.div
-                0x00006c70       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodsi4.o)
-                0x00006c70                __udivmodsi4
+                0x00006dc2       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodsi4.o)
+                0x00006dc2                __udivmodsi4
  .text.libgcc.div
-                0x00006cb4       0x2e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodsi4.o)
-                0x00006cb4                __divmodsi4
+                0x00006e06       0x2e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodsi4.o)
+                0x00006e06                __divmodsi4
  .text.libgcc.div
-                0x00006ce2       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_negsi2.o)
-                0x00006ce2                __negsi2
- .text.libgcc   0x00006cf2        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_tablejump2.o)
-                0x00006cf2                __tablejump2__
+                0x00006e34       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_negsi2.o)
+                0x00006e34                __negsi2
+ .text.libgcc   0x00006e44        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_tablejump2.o)
+                0x00006e44                __tablejump2__
  .text.libgcc.mul
-                0x00006cfe       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_umulhisi3.o)
-                0x00006cfe                __umulhisi3
+                0x00006e50       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_umulhisi3.o)
+                0x00006e50                __umulhisi3
  .text.avr-libc
-                0x00006d1c       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x00006d1c                __itoa_ncheck
+                0x00006e6e       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x00006e6e                __itoa_ncheck
  .text.avr-libc
-                0x00006d32       0x34 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x00006d32                __utoa_ncheck
-                0x00006d34                __utoa_common
+                0x00006e84       0x34 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x00006e84                __utoa_ncheck
+                0x00006e86                __utoa_common
  .text.avr-libc
-                0x00006d66       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00006d66                strrev
-                0x00006d86                . = ALIGN (0x2)
+                0x00006eb8       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00006eb8                strrev
+                0x00006ed8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00006d86        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x00006d86                _exit
-                0x00006d86                exit
+ .fini9         0x00006ed8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x00006ed8                _exit
+                0x00006ed8                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -5167,11 +5181,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00006d86        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x00006ed8        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00006d8a                _etext = .
+                0x00006edc                _etext = .
 
-.data           0x00800100       0x5c load address 0x00006d8a
+.data           0x00800100       0x4c load address 0x00006edc
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -5184,39 +5198,39 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0080010e       0x3e OLED.o
+                0x0080010e       0x34 OLED.o
  .rodata.str1.1
-                0x0080014c       0x10 main.o
+                0x00800142        0xa main.o
  *(.gnu.linkonce.d*)
-                0x0080015c                . = ALIGN (0x2)
-                0x0080015c                _edata = .
-                0x0080015c                PROVIDE (__data_end, .)
+                0x0080014c                . = ALIGN (0x2)
+                0x0080014c                _edata = .
+                0x0080014c                PROVIDE (__data_end, .)
 
-.bss            0x0080015c       0xba
-                0x0080015c                PROVIDE (__bss_start, .)
+.bss            0x0080014c       0xba
+                0x0080014c                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.u8g_i2c_err_pos
-                0x0080015c        0x1 u8g_oled/u8g_com_i2c.o
+                0x0080014c        0x1 u8g_oled/u8g_com_i2c.o
  .bss.u8g_i2c_opt
-                0x0080015d        0x1 u8g_oled/u8g_com_i2c.o
+                0x0080014d        0x1 u8g_oled/u8g_com_i2c.o
  .bss.u8g_i2c_err_code
-                0x0080015e        0x1 u8g_oled/u8g_com_i2c.o
+                0x0080014e        0x1 u8g_oled/u8g_com_i2c.o
  .bss.u8g_dev_ssd1306_128x64_i2c_buf
-                0x0080015f       0x80 u8g_oled/u8g_dev_ssd1306_128x64.o
-                0x0080015f                u8g_dev_ssd1306_128x64_i2c_buf
+                0x0080014f       0x80 u8g_oled/u8g_dev_ssd1306_128x64.o
+                0x0080014f                u8g_dev_ssd1306_128x64_i2c_buf
  *(COMMON)
- COMMON         0x008001df       0x37 OLED.o
-                0x008001df                oled_display
-                0x00800216                PROVIDE (__bss_end, .)
-                0x00006d8a                __data_load_start = LOADADDR (.data)
-                0x00006de6                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008001cf       0x37 OLED.o
+                0x008001cf                oled_display
+                0x00800206                PROVIDE (__bss_end, .)
+                0x00006edc                __data_load_start = LOADADDR (.data)
+                0x00006f28                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800216        0x0
+.noinit         0x00800206        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800216                _end = .
+                0x00800206                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -5298,189 +5312,189 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x7b0
+.debug_aranges  0x00000000      0x7d8
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x28 ADC.o
  .debug_aranges
-                0x00000028       0x50 OLED.o
+                0x00000028       0x48 OLED.o
  .debug_aranges
-                0x00000078       0x20 u8g_oled/u8g_clip.o
+                0x00000070       0x20 u8g_oled/u8g_clip.o
  .debug_aranges
-                0x00000098       0x68 u8g_oled/u8g_com_api.o
+                0x00000090       0x68 u8g_oled/u8g_com_api.o
  .debug_aranges
-                0x00000100       0x28 u8g_oled/u8g_com_arduino_ssd_i2c.o
+                0x000000f8       0x28 u8g_oled/u8g_com_arduino_ssd_i2c.o
  .debug_aranges
-                0x00000128       0x60 u8g_oled/u8g_com_i2c.o
+                0x00000120       0x60 u8g_oled/u8g_com_i2c.o
  .debug_aranges
-                0x00000188       0x30 u8g_oled/u8g_delay.o
+                0x00000180       0x30 u8g_oled/u8g_delay.o
  .debug_aranges
-                0x000001b8       0x40 u8g_oled/u8g_dev_ssd1306_128x64.o
+                0x000001b0       0x40 u8g_oled/u8g_dev_ssd1306_128x64.o
  .debug_aranges
-                0x000001f8      0x260 u8g_oled/u8g_font.o
+                0x000001f0      0x260 u8g_oled/u8g_font.o
  .debug_aranges
-                0x00000458       0x18 u8g_oled/u8g_font_data.o
+                0x00000450       0x18 u8g_oled/u8g_font_data.o
  .debug_aranges
-                0x00000470      0x170 u8g_oled/u8g_ll_api.o
+                0x00000468      0x170 u8g_oled/u8g_ll_api.o
  .debug_aranges
-                0x000005e0       0x30 u8g_oled/u8g_page.o
+                0x000005d8       0x30 u8g_oled/u8g_page.o
  .debug_aranges
-                0x00000610       0x50 u8g_oled/u8g_pb.o
+                0x00000608       0x50 u8g_oled/u8g_pb.o
  .debug_aranges
-                0x00000660       0x48 u8g_oled/u8g_pb8v1.o
+                0x00000658       0x48 u8g_oled/u8g_pb8v1.o
  .debug_aranges
-                0x000006a8       0x60 u8g_oled/u8g_rect.o
+                0x000006a0       0x60 u8g_oled/u8g_rect.o
  .debug_aranges
-                0x00000708       0x30 u8g_oled/u8g_state.o
+                0x00000700       0x30 u8g_oled/u8g_state.o
  .debug_aranges
-                0x00000738       0x50 UART.o
+                0x00000730       0x50 UART.o
  .debug_aranges
-                0x00000788       0x28 main.o
+                0x00000780       0x58 main.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0xfc9e
+.debug_info     0x00000000    0x102ed
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000       0xb8 ADC.o
- .debug_info    0x000000b8      0xdbd OLED.o
- .debug_info    0x00000e75      0x548 u8g_oled/u8g_clip.o
- .debug_info    0x000013bd      0xa1b u8g_oled/u8g_com_api.o
- .debug_info    0x00001dd8      0x62e u8g_oled/u8g_com_arduino_ssd_i2c.o
- .debug_info    0x00002406      0x2f6 u8g_oled/u8g_com_i2c.o
- .debug_info    0x000026fc      0x134 u8g_oled/u8g_delay.o
- .debug_info    0x00002830     0x157a u8g_oled/u8g_dev_ssd1306_128x64.o
- .debug_info    0x00003daa     0x3789 u8g_oled/u8g_font.o
- .debug_info    0x00007533     0x3f84 u8g_oled/u8g_font_data.o
- .debug_info    0x0000b4b7     0x1bd4 u8g_oled/u8g_ll_api.o
- .debug_info    0x0000d08b      0x1a4 u8g_oled/u8g_page.o
- .debug_info    0x0000d22f      0x879 u8g_oled/u8g_pb.o
- .debug_info    0x0000daa8      0x8e6 u8g_oled/u8g_pb8v1.o
- .debug_info    0x0000e38e      0xefe u8g_oled/u8g_rect.o
- .debug_info    0x0000f28c      0x51f u8g_oled/u8g_state.o
- .debug_info    0x0000f7ab      0x1cc UART.o
- .debug_info    0x0000f977      0x327 main.o
+ .debug_info    0x000000b8      0xb98 OLED.o
+ .debug_info    0x00000c50      0x548 u8g_oled/u8g_clip.o
+ .debug_info    0x00001198      0xa1b u8g_oled/u8g_com_api.o
+ .debug_info    0x00001bb3      0x62e u8g_oled/u8g_com_arduino_ssd_i2c.o
+ .debug_info    0x000021e1      0x2f6 u8g_oled/u8g_com_i2c.o
+ .debug_info    0x000024d7      0x134 u8g_oled/u8g_delay.o
+ .debug_info    0x0000260b     0x157a u8g_oled/u8g_dev_ssd1306_128x64.o
+ .debug_info    0x00003b85     0x3789 u8g_oled/u8g_font.o
+ .debug_info    0x0000730e     0x3f84 u8g_oled/u8g_font_data.o
+ .debug_info    0x0000b292     0x1bd4 u8g_oled/u8g_ll_api.o
+ .debug_info    0x0000ce66      0x1a4 u8g_oled/u8g_page.o
+ .debug_info    0x0000d00a      0x879 u8g_oled/u8g_pb.o
+ .debug_info    0x0000d883      0x8e6 u8g_oled/u8g_pb8v1.o
+ .debug_info    0x0000e169      0xefe u8g_oled/u8g_rect.o
+ .debug_info    0x0000f067      0x51f u8g_oled/u8g_state.o
+ .debug_info    0x0000f586      0x1cc UART.o
+ .debug_info    0x0000f752      0xb9b main.o
 
-.debug_abbrev   0x00000000     0x1f23
+.debug_abbrev   0x00000000     0x2066
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0x7a ADC.o
- .debug_abbrev  0x0000007a      0x2d2 OLED.o
- .debug_abbrev  0x0000034c      0x16e u8g_oled/u8g_clip.o
- .debug_abbrev  0x000004ba      0x19d u8g_oled/u8g_com_api.o
- .debug_abbrev  0x00000657      0x1a7 u8g_oled/u8g_com_arduino_ssd_i2c.o
- .debug_abbrev  0x000007fe      0x158 u8g_oled/u8g_com_i2c.o
- .debug_abbrev  0x00000956       0xb0 u8g_oled/u8g_delay.o
- .debug_abbrev  0x00000a06      0x1e2 u8g_oled/u8g_dev_ssd1306_128x64.o
- .debug_abbrev  0x00000be8      0x452 u8g_oled/u8g_font.o
- .debug_abbrev  0x0000103a       0x88 u8g_oled/u8g_font_data.o
- .debug_abbrev  0x000010c2      0x3bc u8g_oled/u8g_ll_api.o
- .debug_abbrev  0x0000147e       0xe5 u8g_oled/u8g_page.o
- .debug_abbrev  0x00001563      0x231 u8g_oled/u8g_pb.o
- .debug_abbrev  0x00001794      0x1da u8g_oled/u8g_pb8v1.o
- .debug_abbrev  0x0000196e      0x184 u8g_oled/u8g_rect.o
- .debug_abbrev  0x00001af2      0x16c u8g_oled/u8g_state.o
- .debug_abbrev  0x00001c5e      0x122 UART.o
- .debug_abbrev  0x00001d80      0x1a3 main.o
+ .debug_abbrev  0x0000007a      0x2c3 OLED.o
+ .debug_abbrev  0x0000033d      0x16e u8g_oled/u8g_clip.o
+ .debug_abbrev  0x000004ab      0x19d u8g_oled/u8g_com_api.o
+ .debug_abbrev  0x00000648      0x1a7 u8g_oled/u8g_com_arduino_ssd_i2c.o
+ .debug_abbrev  0x000007ef      0x158 u8g_oled/u8g_com_i2c.o
+ .debug_abbrev  0x00000947       0xb0 u8g_oled/u8g_delay.o
+ .debug_abbrev  0x000009f7      0x1e2 u8g_oled/u8g_dev_ssd1306_128x64.o
+ .debug_abbrev  0x00000bd9      0x452 u8g_oled/u8g_font.o
+ .debug_abbrev  0x0000102b       0x88 u8g_oled/u8g_font_data.o
+ .debug_abbrev  0x000010b3      0x3bc u8g_oled/u8g_ll_api.o
+ .debug_abbrev  0x0000146f       0xe5 u8g_oled/u8g_page.o
+ .debug_abbrev  0x00001554      0x231 u8g_oled/u8g_pb.o
+ .debug_abbrev  0x00001785      0x1da u8g_oled/u8g_pb8v1.o
+ .debug_abbrev  0x0000195f      0x184 u8g_oled/u8g_rect.o
+ .debug_abbrev  0x00001ae3      0x16c u8g_oled/u8g_state.o
+ .debug_abbrev  0x00001c4f      0x122 UART.o
+ .debug_abbrev  0x00001d71      0x2f5 main.o
 
-.debug_line     0x00000000     0x3be2
+.debug_line     0x00000000     0x3ccd
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000       0xf8 ADC.o
- .debug_line    0x000000f8      0x37b OLED.o
- .debug_line    0x00000473      0x122 u8g_oled/u8g_clip.o
- .debug_line    0x00000595      0x267 u8g_oled/u8g_com_api.o
- .debug_line    0x000007fc      0x1dd u8g_oled/u8g_com_arduino_ssd_i2c.o
- .debug_line    0x000009d9      0x280 u8g_oled/u8g_com_i2c.o
- .debug_line    0x00000c59      0x163 u8g_oled/u8g_delay.o
- .debug_line    0x00000dbc      0x33c u8g_oled/u8g_dev_ssd1306_128x64.o
- .debug_line    0x000010f8     0x131e u8g_oled/u8g_font.o
- .debug_line    0x00002416       0xa4 u8g_oled/u8g_font_data.o
- .debug_line    0x000024ba      0x919 u8g_oled/u8g_ll_api.o
- .debug_line    0x00002dd3      0x13b u8g_oled/u8g_page.o
- .debug_line    0x00002f0e      0x235 u8g_oled/u8g_pb.o
- .debug_line    0x00003143      0x2cc u8g_oled/u8g_pb8v1.o
- .debug_line    0x0000340f      0x32c u8g_oled/u8g_rect.o
- .debug_line    0x0000373b      0x107 u8g_oled/u8g_state.o
- .debug_line    0x00003842      0x1c9 UART.o
- .debug_line    0x00003a0b      0x1d7 main.o
+ .debug_line    0x000000f8      0x2de OLED.o
+ .debug_line    0x000003d6      0x122 u8g_oled/u8g_clip.o
+ .debug_line    0x000004f8      0x267 u8g_oled/u8g_com_api.o
+ .debug_line    0x0000075f      0x1dd u8g_oled/u8g_com_arduino_ssd_i2c.o
+ .debug_line    0x0000093c      0x280 u8g_oled/u8g_com_i2c.o
+ .debug_line    0x00000bbc      0x163 u8g_oled/u8g_delay.o
+ .debug_line    0x00000d1f      0x33c u8g_oled/u8g_dev_ssd1306_128x64.o
+ .debug_line    0x0000105b     0x131e u8g_oled/u8g_font.o
+ .debug_line    0x00002379       0xa4 u8g_oled/u8g_font_data.o
+ .debug_line    0x0000241d      0x919 u8g_oled/u8g_ll_api.o
+ .debug_line    0x00002d36      0x13b u8g_oled/u8g_page.o
+ .debug_line    0x00002e71      0x235 u8g_oled/u8g_pb.o
+ .debug_line    0x000030a6      0x2cc u8g_oled/u8g_pb8v1.o
+ .debug_line    0x00003372      0x32c u8g_oled/u8g_rect.o
+ .debug_line    0x0000369e      0x107 u8g_oled/u8g_state.o
+ .debug_line    0x000037a5      0x1c9 UART.o
+ .debug_line    0x0000396e      0x35f main.o
 
-.debug_frame    0x00000000     0x18b0
+.debug_frame    0x00000000     0x1930
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 ADC.o
- .debug_frame   0x00000034       0xd4 OLED.o
- .debug_frame   0x00000108       0x2c u8g_oled/u8g_clip.o
- .debug_frame   0x00000134       0xe8 u8g_oled/u8g_com_api.o
- .debug_frame   0x0000021c       0x64 u8g_oled/u8g_com_arduino_ssd_i2c.o
- .debug_frame   0x00000280       0xd0 u8g_oled/u8g_com_i2c.o
- .debug_frame   0x00000350       0x44 u8g_oled/u8g_delay.o
- .debug_frame   0x00000394      0x154 u8g_oled/u8g_dev_ssd1306_128x64.o
- .debug_frame   0x000004e8      0x9c8 u8g_oled/u8g_font.o
- .debug_frame   0x00000eb0      0x514 u8g_oled/u8g_ll_api.o
- .debug_frame   0x000013c4       0x44 u8g_oled/u8g_page.o
- .debug_frame   0x00001408       0x98 u8g_oled/u8g_pb.o
- .debug_frame   0x000014a0       0xc8 u8g_oled/u8g_pb8v1.o
- .debug_frame   0x00001568      0x21c u8g_oled/u8g_rect.o
- .debug_frame   0x00001784       0x44 u8g_oled/u8g_state.o
- .debug_frame   0x000017c8       0x9c UART.o
- .debug_frame   0x00001864       0x4c main.o
+ .debug_frame   0x00000034       0xa4 OLED.o
+ .debug_frame   0x000000d8       0x2c u8g_oled/u8g_clip.o
+ .debug_frame   0x00000104       0xe8 u8g_oled/u8g_com_api.o
+ .debug_frame   0x000001ec       0x64 u8g_oled/u8g_com_arduino_ssd_i2c.o
+ .debug_frame   0x00000250       0xd0 u8g_oled/u8g_com_i2c.o
+ .debug_frame   0x00000320       0x44 u8g_oled/u8g_delay.o
+ .debug_frame   0x00000364      0x154 u8g_oled/u8g_dev_ssd1306_128x64.o
+ .debug_frame   0x000004b8      0x9c8 u8g_oled/u8g_font.o
+ .debug_frame   0x00000e80      0x514 u8g_oled/u8g_ll_api.o
+ .debug_frame   0x00001394       0x44 u8g_oled/u8g_page.o
+ .debug_frame   0x000013d8       0x98 u8g_oled/u8g_pb.o
+ .debug_frame   0x00001470       0xc8 u8g_oled/u8g_pb8v1.o
+ .debug_frame   0x00001538      0x21c u8g_oled/u8g_rect.o
+ .debug_frame   0x00001754       0x44 u8g_oled/u8g_state.o
+ .debug_frame   0x00001798       0x9c UART.o
+ .debug_frame   0x00001834       0xfc main.o
 
-.debug_str      0x00000000     0x372c
+.debug_str      0x00000000     0x3789
  *(.debug_str)
  .debug_str     0x00000000      0x16a ADC.o
                                 0x1a6 (size before relaxing)
- .debug_str     0x0000016a      0x3ba OLED.o
-                                0x5ca (size before relaxing)
- .debug_str     0x00000524       0x4f u8g_oled/u8g_clip.o
+ .debug_str     0x0000016a      0x355 OLED.o
+                                0x568 (size before relaxing)
+ .debug_str     0x000004bf       0x4f u8g_oled/u8g_clip.o
                                 0x404 (size before relaxing)
- .debug_str     0x00000573      0x103 u8g_oled/u8g_com_api.o
+ .debug_str     0x0000050e       0xfd u8g_oled/u8g_com_api.o
                                 0x4c1 (size before relaxing)
- .debug_str     0x00000676       0xae u8g_oled/u8g_com_arduino_ssd_i2c.o
+ .debug_str     0x0000060b       0xae u8g_oled/u8g_com_arduino_ssd_i2c.o
                                 0x47e (size before relaxing)
- .debug_str     0x00000724       0xb4 u8g_oled/u8g_com_i2c.o
+ .debug_str     0x000006b9       0xb4 u8g_oled/u8g_com_i2c.o
                                 0x27e (size before relaxing)
- .debug_str     0x000007d8       0x4e u8g_oled/u8g_delay.o
+ .debug_str     0x0000076d       0x4e u8g_oled/u8g_delay.o
                                 0x1d6 (size before relaxing)
- .debug_str     0x00000826      0x6fd u8g_oled/u8g_dev_ssd1306_128x64.o
+ .debug_str     0x000007bb      0x6fd u8g_oled/u8g_dev_ssd1306_128x64.o
                                 0xb44 (size before relaxing)
- .debug_str     0x00000f23      0x73c u8g_oled/u8g_font.o
+ .debug_str     0x00000eb8      0x73c u8g_oled/u8g_font.o
                                 0xb82 (size before relaxing)
- .debug_str     0x0000165f     0x1a5b u8g_oled/u8g_font_data.o
+ .debug_str     0x000015f4     0x1a8e u8g_oled/u8g_font_data.o
                                0x1c39 (size before relaxing)
- .debug_str     0x000030ba      0x2df u8g_oled/u8g_ll_api.o
+ .debug_str     0x00003082      0x2df u8g_oled/u8g_ll_api.o
                                 0x715 (size before relaxing)
- .debug_str     0x00003399       0x42 u8g_oled/u8g_page.o
+ .debug_str     0x00003361       0x42 u8g_oled/u8g_page.o
                                 0x20f (size before relaxing)
- .debug_str     0x000033db       0xaa u8g_oled/u8g_pb.o
+ .debug_str     0x000033a3       0xaa u8g_oled/u8g_pb.o
                                 0x4ee (size before relaxing)
- .debug_str     0x00003485       0x89 u8g_oled/u8g_pb8v1.o
+ .debug_str     0x0000344d       0x89 u8g_oled/u8g_pb8v1.o
                                 0x504 (size before relaxing)
- .debug_str     0x0000350e       0xa9 u8g_oled/u8g_rect.o
+ .debug_str     0x000034d6       0xa9 u8g_oled/u8g_rect.o
                                 0x491 (size before relaxing)
- .debug_str     0x000035b7       0x86 u8g_oled/u8g_state.o
+ .debug_str     0x0000357f       0x86 u8g_oled/u8g_state.o
                                 0x43b (size before relaxing)
- .debug_str     0x0000363d       0x7e UART.o
+ .debug_str     0x00003605       0x7e UART.o
                                 0x205 (size before relaxing)
- .debug_str     0x000036bb       0x71 main.o
-                                0x2af (size before relaxing)
+ .debug_str     0x00003683      0x106 main.o
+                                0x642 (size before relaxing)
 
-.debug_loc      0x00000000     0xa791
+.debug_loc      0x00000000     0xa955
  *(.debug_loc)
  .debug_loc     0x00000000       0x21 ADC.o
- .debug_loc     0x00000021      0x268 OLED.o
- .debug_loc     0x00000289      0x288 u8g_oled/u8g_clip.o
- .debug_loc     0x00000511      0x67d u8g_oled/u8g_com_api.o
- .debug_loc     0x00000b8e      0x457 u8g_oled/u8g_com_arduino_ssd_i2c.o
- .debug_loc     0x00000fe5      0x21f u8g_oled/u8g_com_i2c.o
- .debug_loc     0x00001204       0x66 u8g_oled/u8g_delay.o
- .debug_loc     0x0000126a      0x8b6 u8g_oled/u8g_dev_ssd1306_128x64.o
- .debug_loc     0x00001b20     0x4c74 u8g_oled/u8g_font.o
- .debug_loc     0x00006794     0x21ee u8g_oled/u8g_ll_api.o
- .debug_loc     0x00008982       0xec u8g_oled/u8g_page.o
- .debug_loc     0x00008a6e      0x541 u8g_oled/u8g_pb.o
- .debug_loc     0x00008faf      0x6d9 u8g_oled/u8g_pb8v1.o
- .debug_loc     0x00009688      0xeef u8g_oled/u8g_rect.o
- .debug_loc     0x0000a577       0x7d u8g_oled/u8g_state.o
- .debug_loc     0x0000a5f4      0x109 UART.o
- .debug_loc     0x0000a6fd       0x94 main.o
+ .debug_loc     0x00000021      0x1cd OLED.o
+ .debug_loc     0x000001ee      0x288 u8g_oled/u8g_clip.o
+ .debug_loc     0x00000476      0x67d u8g_oled/u8g_com_api.o
+ .debug_loc     0x00000af3      0x457 u8g_oled/u8g_com_arduino_ssd_i2c.o
+ .debug_loc     0x00000f4a      0x21f u8g_oled/u8g_com_i2c.o
+ .debug_loc     0x00001169       0x66 u8g_oled/u8g_delay.o
+ .debug_loc     0x000011cf      0x8b6 u8g_oled/u8g_dev_ssd1306_128x64.o
+ .debug_loc     0x00001a85     0x4c74 u8g_oled/u8g_font.o
+ .debug_loc     0x000066f9     0x21ee u8g_oled/u8g_ll_api.o
+ .debug_loc     0x000088e7       0xec u8g_oled/u8g_page.o
+ .debug_loc     0x000089d3      0x541 u8g_oled/u8g_pb.o
+ .debug_loc     0x00008f14      0x6d9 u8g_oled/u8g_pb8v1.o
+ .debug_loc     0x000095ed      0xeef u8g_oled/u8g_rect.o
+ .debug_loc     0x0000a4dc       0x7d u8g_oled/u8g_state.o
+ .debug_loc     0x0000a559      0x109 UART.o
+ .debug_loc     0x0000a662      0x2f3 main.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -5500,25 +5514,25 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x878
+.debug_ranges   0x00000000      0x8a0
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x18 ADC.o
- .debug_ranges  0x00000018       0x40 OLED.o
- .debug_ranges  0x00000058       0x28 u8g_oled/u8g_clip.o
- .debug_ranges  0x00000080       0x58 u8g_oled/u8g_com_api.o
- .debug_ranges  0x000000d8       0x48 u8g_oled/u8g_com_arduino_ssd_i2c.o
- .debug_ranges  0x00000120       0x50 u8g_oled/u8g_com_i2c.o
- .debug_ranges  0x00000170       0x20 u8g_oled/u8g_delay.o
- .debug_ranges  0x00000190       0x30 u8g_oled/u8g_dev_ssd1306_128x64.o
- .debug_ranges  0x000001c0      0x3e0 u8g_oled/u8g_font.o
- .debug_ranges  0x000005a0      0x160 u8g_oled/u8g_ll_api.o
- .debug_ranges  0x00000700       0x20 u8g_oled/u8g_page.o
- .debug_ranges  0x00000720       0x58 u8g_oled/u8g_pb.o
- .debug_ranges  0x00000778       0x38 u8g_oled/u8g_pb8v1.o
- .debug_ranges  0x000007b0       0x50 u8g_oled/u8g_rect.o
- .debug_ranges  0x00000800       0x20 u8g_oled/u8g_state.o
- .debug_ranges  0x00000820       0x40 UART.o
- .debug_ranges  0x00000860       0x18 main.o
+ .debug_ranges  0x00000018       0x38 OLED.o
+ .debug_ranges  0x00000050       0x28 u8g_oled/u8g_clip.o
+ .debug_ranges  0x00000078       0x58 u8g_oled/u8g_com_api.o
+ .debug_ranges  0x000000d0       0x48 u8g_oled/u8g_com_arduino_ssd_i2c.o
+ .debug_ranges  0x00000118       0x50 u8g_oled/u8g_com_i2c.o
+ .debug_ranges  0x00000168       0x20 u8g_oled/u8g_delay.o
+ .debug_ranges  0x00000188       0x30 u8g_oled/u8g_dev_ssd1306_128x64.o
+ .debug_ranges  0x000001b8      0x3e0 u8g_oled/u8g_font.o
+ .debug_ranges  0x00000598      0x160 u8g_oled/u8g_ll_api.o
+ .debug_ranges  0x000006f8       0x20 u8g_oled/u8g_page.o
+ .debug_ranges  0x00000718       0x58 u8g_oled/u8g_pb.o
+ .debug_ranges  0x00000770       0x38 u8g_oled/u8g_pb8v1.o
+ .debug_ranges  0x000007a8       0x50 u8g_oled/u8g_rect.o
+ .debug_ranges  0x000007f8       0x20 u8g_oled/u8g_state.o
+ .debug_ranges  0x00000818       0x40 UART.o
+ .debug_ranges  0x00000858       0x48 main.o
 
 .debug_macro
  *(.debug_macro)
